@@ -8,16 +8,21 @@ This program read 3 moisture sensors and upload the data to xively.com
 
 Follow this http://www.cheapvegetablegardener.com/how-to-make-cheap-soil-moisture-sensor-2/
 
+## Light sensor ##
+
+A common photovoltaic resistance
+
 ## Schema ##
 
-http://upload.wikimedia.org/wikipedia/commons/d/db/Resistive_divider.png
+4 resistive divider
 
-R1 = 1kΩ
+[Image](http://upload.wikimedia.org/wikipedia/commons/d/db/Resistive_divider.png)
 
-R2 = moisture sensor
+- R1 = 1kΩ
+- R2 = moisture sensor / light sensor
+- Vin = 5v
+- Vout to Arduino board, analogique pin
 
-Vin = 5v
+## Compatibility issues ##
 
-## compatibility issues ##
-
-WifiShield R3 doesn't work with IDE 1.0.5, 1.0.3 https://github.com/arduino/Arduino/issues/1840 - I switched to 1.0.4
+WifiShield R3 doesn't work with IDE 1.0.5, 1.0.3 [1840](https://github.com/arduino/Arduino/issues/1840) - I switched to 1.0.4

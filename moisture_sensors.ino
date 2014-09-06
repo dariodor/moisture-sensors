@@ -13,6 +13,7 @@
 #define bluePin A2
 #define greenPin A3
 #define orangePin A4
+#define lightPin A5
 
 char ssid[] = "";    // network SSID
 char pass[] = "";    // network password (use for WPA, or use as key for WEP)
@@ -30,15 +31,17 @@ char xivelyKey[] = "";
 char blueId[] = "blue";
 char greenId[] = "green";
 char orangeId[] = "orange";
+char lightId[] = "light";
 
 // Define the strings for our datastream IDs
 XivelyDatastream datastreams[] = {
   XivelyDatastream(blueId, strlen(blueId), DATASTREAM_FLOAT),
   XivelyDatastream(greenId, strlen(greenId), DATASTREAM_FLOAT),
-  XivelyDatastream(orangeId, strlen(orangeId), DATASTREAM_FLOAT)
+  XivelyDatastream(orangeId, strlen(orangeId), DATASTREAM_FLOAT),
+  XivelyDatastream(lightId, strlen(lightId), DATASTREAM_FLOAT)
 };
 // Finally, wrap the datastreams into a feed
-XivelyFeed feed(1743234869, datastreams, 3 /* number of datastreams */);
+XivelyFeed feed(1743234869, datastreams, 4 /* number of datastreams */);
 
 WiFiClient client;
 XivelyClient xivelyclient(client);
@@ -110,6 +113,14 @@ void loop() {
   Serial.print("Read Orange sensor value ");
   Serial.println(datastreams[2].getFloat());
 
+  //read sensor values
+  int lightValue = analogRead(lightPin);
+  delay(1);
+  datastreams[3].setFloat(lightValue);
+  //print the sensor values
+  Serial.print("Read Light sensor value ");
+  Serial.println(datastreams[3].getFloat());
+
 
   //send value to xively
   Serial.println("Uploading it to Xively");
@@ -120,5 +131,5 @@ void loop() {
  
   Serial.println();
   //delay between calls
-  delay(20000);
+  delay(30000);
 }

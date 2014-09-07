@@ -31,10 +31,10 @@ int status = WL_IDLE_STATUS;
 // Your Xively key to let you upload data
 char xivelyKey[] = "";
 
-//your xively feed ID
-// #define xivelyFeed 1743234869
+// Your xively feed ID
+ #define xivelyFeed 1743234869
 
-//datastreams
+// Datastreams
 char blueId[] = "blue";
 char greenId[] = "green";
 char orangeId[] = "orange";
@@ -48,7 +48,7 @@ XivelyDatastream datastreams[] = {
   XivelyDatastream(lightId, strlen(lightId), DATASTREAM_FLOAT)
 };
 // Finally, wrap the datastreams into a feed
-XivelyFeed feed(1743234869, datastreams, 4 /* number of datastreams */);
+XivelyFeed feed(xivelyFeed, datastreams, 4 /* number of datastreams */);
 
 WiFiClient client;
 XivelyClient xivelyclient(client);

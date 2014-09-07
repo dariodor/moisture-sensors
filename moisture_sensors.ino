@@ -9,11 +9,18 @@
 #include <HttpClient.h>
 #include <Xively.h>
 
+// Number of pins
+#define PINS 4
+
 // Analog pin which we're monitoring (0 and 1 are used by the Ethernet shield)
-#define bluePin A2
-#define greenPin A3
-#define orangePin A4
-#define lightPin A5
+// Pins and relative display name
+const char readPins[2][PINS] = { 
+  {'A2','A3','A4','A5'},
+  {'blue','green','orange','light'}
+};
+
+// for variable
+byte k=0;
 
 char ssid[] = "";    // network SSID
 char pass[] = "";    // network password (use for WPA, or use as key for WEP)
@@ -66,11 +73,11 @@ void printWifiStatus() {
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  //pin setup
-  pinMode(bluePin, INPUT);
-  pinMode(greenPin, INPUT);
-  pinMode(orangePin, INPUT);
- /* pinMode(ledPin, OUTPUT);*/
+
+  //pins setup
+ for(k=0; k<PINS; k++){
+    pinMode(readPins[0][k], INPUT);
+}
   
   Serial.println("Starting single datastream upload to Xively...");
   Serial.println();
@@ -88,39 +95,18 @@ void setup() {
 }
 
 void loop() {
-	
-  //read sensor values
-  int blueValue = analogRead(bluePin);
-  delay(1);
-  datastreams[0].setFloat(blueValue);
-  //print the sensor values
-  Serial.print("Read Blue sensor value ");
-  Serial.println(datastreams[0].getFloat());
-
-  //read sensor values
-  int greenValue = analogRead(greenPin);
-  delay(1);
-  datastreams[1].setFloat(greenValue);
-  //print the sensor values
-  Serial.print("Read Green sensor value ");
-  Serial.println(datastreams[1].getFloat());
-
-  //read sensor values
-  int orangeValue = analogRead(orangePin);
-  delay(1);
-  datastreams[2].setFloat(orangeValue);
-  //print the sensor values
-  Serial.print("Read Orange sensor value ");
-  Serial.println(datastreams[2].getFloat());
-
-  //read sensor values
-  int lightValue = analogRead(lightPin);
-  delay(1);
-  datastreams[3].setFloat(lightValue);
-  //print the sensor values
-  Serial.print("Read Light sensor value ");
-  Serial.println(datastreams[3].getFloat());
-
+  
+  for(k=0; k<PINS; k++){
+    //read sensor values
+    int value = analogRead(readPins[0][k]);
+    delay(1);
+    datastreams[k].setFloat(value);
+    //print the sensor name and relative value
+    Serial.print("Read ");
+    Serial.print(readPins[1][k]);
+    Serial.print(" sensor value ");
+    Serial.println(datastreams[k].getFloat());
+  }
 
   //send value to xively
   Serial.println("Uploading it to Xively");

@@ -16,7 +16,7 @@ A common photovoltaic resistance
 
 4 resistive divider
 
-[Image](http://upload.wikimedia.org/wikipedia/commons/d/db/Resistive_divider.png)
+![Resistive_divider](http://upload.wikimedia.org/wikipedia/commons/d/db/Resistive_divider.png)
 
 - R1 = 1kΩ
 - R2 = moisture sensor / light sensor
